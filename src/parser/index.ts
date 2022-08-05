@@ -1,7 +1,7 @@
 import { isArray, orderBy, get, set, forEach, groupBy, first, toString, uniq } from "lodash";
 import { Parser, Grammar } from "nearley";
 import grammar from "../grammar/grammar";
-import * as csv_parser from "csv-parse/lib/sync";
+import * as csv_parser from "csv-parse/sync";
 import * as jsonata from "jsonata";
 import { XMLParser } from "fast-xml-parser";
 import { load as yaml_loader } from "js-yaml";
@@ -383,7 +383,7 @@ export const parse = (input: Command[], options?: { data?: any }): Promise<unkno
           case "parse-csv":
             if (typeof pv.output === "string") {
               let csv_parser_options = get_parse_csv_options(cv.args);
-              let result: string[][] = csv_parser(pv.output, csv_parser_options);
+              let result: string[][] = csv_parser.parse(pv.output, csv_parser_options);
               pv.output = result;
             }
             return pv;
